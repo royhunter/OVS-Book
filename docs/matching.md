@@ -1,3 +1,18 @@
+## Matching
+1. Exact match, field=value e.g. nw_src=10.1.2.3
+2. Bitwise match, field=value/mask e.g. nw_src=10.1.0.0/255.255.0.0
+3. Wildcard, field=* e.g. ``any nw_src’’
+4. Set match, e.g. ``tcp_dst ∈ {80, 443, 8080}’’
+5. Range match, e.g. ``1000 ≤ tcp_dst ≤ 1999’’
+6. Inequality match, e.g. ``tcp_dst ≠ 80’’
+7. Conjunctive  match, e.g. ``tcp_src ∈ {80, 443, 8080} and tcp_dst ∈ {80, 443, 8080}’’
+
+
+
+OXM: OpenFlow  Extensible  Match  (OpenFlow 1.2)
+NXM: Nicira Extended Match (OpenFlow 1.1)
+
+
 ## Matching Fields
 #### port
 **in_port=port**  
@@ -101,3 +116,12 @@ When dl_type specifies either ARP or RARP, arp_sha and arp_tha match the source 
 **tun_id=tunnel-id[/mask]**  
 
 Matches tunnel identifier tunnel-id. Only packets that arrive over a tunnel that carries a key (e.g. GRE with the RFC 2890 key extension and a nonzero key value) will have a nonzero tunnel ID.
+
+
+## REGISTER FIELDS
+- metadata 8 Bytes
+- reg0-15  4 Bytes
+- xreg0-8  8 Bytes
+- xxreg0-3 16 Bytes
+
+These fields give an OpenFlow switch space for temporary storage  while the  pipeline is running. Whereas metadata fields can have a meaningful initial  value  and  can  persist  across  some  hops  across  OpenFlow switches,  registers are always initially 0 and their values never per‐sist across inter-switch hops (not even across patch ports)
